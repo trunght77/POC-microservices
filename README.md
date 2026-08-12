@@ -95,27 +95,27 @@ Chi tiết hướng dẫn khởi chạy từng service xem tại [services/READM
 - **Auth Service (Port 8081):**
   ```powershell
   cd services/auth-service
-  $env:DB_URL="jdbc:postgresql://ep-withered-water-azrelm0x-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-  $env:DB_USERNAME="neondb_owner"
-  $env:DB_PASSWORD="npg_fmZOuPX8xh5J"
+  $env:DB_URL="jdbc:postgresql://<NEON_KITS_USER_HOST>/neondb?sslmode=require"
+  $env:DB_USERNAME="<NEON_USERNAME>"
+  $env:DB_PASSWORD="<NEON_PASSWORD>"
   java -jar target/auth-service-0.0.1-SNAPSHOT.jar
   ```
 
 - **Story Service (Port 8082):**
   ```powershell
   cd services/story-service
-  $env:DB_URL="jdbc:postgresql://ep-empty-dew-azuxyot6-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-  $env:DB_USERNAME="neondb_owner"
-  $env:DB_PASSWORD="npg_DPmt3eNdzL9i"
+  $env:DB_URL="jdbc:postgresql://<NEON_KITS_STORY_HOST>/neondb?sslmode=require"
+  $env:DB_USERNAME="<NEON_USERNAME>"
+  $env:DB_PASSWORD="<NEON_PASSWORD>"
   java -jar target/story-service-0.0.1-SNAPSHOT.jar
   ```
 
 - **Sync Service (Port 8083):**
   ```powershell
   cd services/sync-service
-  $env:DB_URL="jdbc:postgresql://ep-super-snow-az7yq1ge-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-  $env:DB_USERNAME="neondb_owner"
-  $env:DB_PASSWORD="npg_fqRyD54ACZxO"
+  $env:DB_URL="jdbc:postgresql://<NEON_KITS_SYNC_HOST>/neondb?sslmode=require"
+  $env:DB_USERNAME="<NEON_USERNAME>"
+  $env:DB_PASSWORD="<NEON_PASSWORD>"
   java -jar target/sync-service-0.0.1-SNAPSHOT.jar
   ```
 
