@@ -29,6 +29,8 @@ spring:
             allowCredentials: true
 
       default-filters:
+        # Downstream may also send CORS headers; keep a single value after merge.
+        # (CorsWebFilter sets ACAO before the chain — do NOT RemoveResponseHeader those.)
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
         - AddRequestHeader=X-Gateway-Secret, ${GATEWAY_SHARED_SECRET:local-gateway-secret}
 
