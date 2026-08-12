@@ -1,0 +1,28 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 3000
+        response-timeout: 10s
+      default-filters:
+        - AddRequestHeader=X-Gateway-Secret, ${GATEWAY_SHARED_SECRET:local-gateway-secret}
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/users,/api/v1/users/**
+
+        - id: story-service
+          uri: ${STORY_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/stories,/api/v1/stories/**
+
+        - id: sync-service
+          uri: ${SYNC_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/reading-progress,/api/v1/reading-progress/**

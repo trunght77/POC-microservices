@@ -36,6 +36,7 @@ Mỗi microservice (Spring Boot) bên trong thư mục này tuân thủ cấu tr
 
 | Service | Thư mục | Port | Database (Neon) | Health Check Endpoint | Main API Endpoint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| **API Gateway** | `services/api-gateway` | `8080` | Không có DB | `GET /api/v1/health` | Routes `/api/v1/users`, `/api/v1/stories`, `/api/v1/reading-progress` |
 | **Auth Service** | `services/auth-service` | `8081` | `kits-user` | `GET /api/v1/health` | `GET /api/v1/users` |
 | **Story Service** | `services/story-service` | `8082` | `kits-story` | `GET /api/v1/health` | `GET /api/v1/stories` |
 | **Sync Service** | `services/sync-service` | `8083` | `kits-sync` | `GET /api/v1/health` | `GET /api/v1/reading-progress` |
@@ -107,3 +108,4 @@ java -jar target/sync-service-0.0.1-SNAPSHOT.jar
 1. **Tuân thủ SOLID:** Đảm bảo Controller không chứa logic tính toán (chỉ nhận và trả data), chuyển hết logic về Service.
 2. **Khai báo tên Service:** Tên thư mục gốc phải sử dụng `kebab-case` (ví dụ: `auth-service`), trong khi tên Java package phải là chữ thường dính liền (ví dụ: `com.comicverse.auth`).
 3. **Môi trường cục bộ (.env):** Không được push các mật khẩu DB, khóa JWT trực tiếp vào `application.yml` rồi đưa lên Git. Hãy dùng biến môi trường (ví dụ: `${DB_PASSWORD}`) và cấu hình qua file `.env` ở local.
+4. **Gateway-only access:** Các API nghiệp vụ của `auth-service`, `story-service`, và `sync-service` yêu cầu header `X-Gateway-Secret`. API Gateway tự gắn header này khi forward request. Trên Render, đặt cùng giá trị `GATEWAY_SHARED_SECRET` cho Gateway và cả 3 service.

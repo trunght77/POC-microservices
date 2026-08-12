@@ -21,9 +21,7 @@ interface ReadingProgress {
   progressPercent: number;
 }
 
-const AUTH_URL = import.meta.env.VITE_AUTH_API_URL || 'http://localhost:8081';
-const STORY_URL = import.meta.env.VITE_STORY_API_URL || 'http://localhost:8082';
-const SYNC_URL = import.meta.env.VITE_SYNC_API_URL || 'http://localhost:8083';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -40,7 +38,7 @@ export default function App() {
 
   useEffect(() => {
     // Fetch Users
-    fetch(`${AUTH_URL}/api/v1/users`)
+    fetch(`${API_URL}/api/v1/users`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -55,7 +53,7 @@ export default function App() {
       });
 
     // Fetch Stories
-    fetch(`${STORY_URL}/api/v1/stories`)
+    fetch(`${API_URL}/api/v1/stories`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -70,7 +68,7 @@ export default function App() {
       });
 
     // Fetch Reading Progress
-    fetch(`${SYNC_URL}/api/v1/reading-progress`)
+    fetch(`${API_URL}/api/v1/reading-progress`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -102,7 +100,7 @@ export default function App() {
             ) : userError ? (
               <span className="badge badge-error">Service Down</span>
             ) : (
-              <span className="badge badge-success">Online (8081)</span>
+              <span className="badge badge-success">Online via Gateway</span>
             )}
           </div>
           {userError ? (
@@ -128,7 +126,7 @@ export default function App() {
             ) : storyError ? (
               <span className="badge badge-error">Service Down</span>
             ) : (
-              <span className="badge badge-success">Online (8082)</span>
+              <span className="badge badge-success">Online via Gateway</span>
             )}
           </div>
           {storyError ? (
@@ -154,7 +152,7 @@ export default function App() {
             ) : syncError ? (
               <span className="badge badge-error">Service Down</span>
             ) : (
-              <span className="badge badge-success">Online (8083)</span>
+              <span className="badge badge-success">Online via Gateway</span>
             )}
           </div>
           {syncError ? (

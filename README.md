@@ -119,12 +119,33 @@ Chi tiết hướng dẫn khởi chạy từng service xem tại [services/READM
   java -jar target/sync-service-0.0.1-SNAPSHOT.jar
   ```
 
-**4. Khởi chạy Frontend (Web Reader)**
+**4. Khởi chạy API Gateway**
+```powershell
+cd services/api-gateway
+$env:AUTH_SERVICE_URL="http://localhost:8081"
+$env:STORY_SERVICE_URL="http://localhost:8082"
+$env:SYNC_SERVICE_URL="http://localhost:8083"
+$env:CORS_ALLOWED_ORIGINS="http://localhost:5173"
+$env:GATEWAY_SHARED_SECRET="local-gateway-secret"
+mvn spring-boot:run
+```
+
+API Gateway sẽ chạy tại `http://localhost:8080` và là entry point duy nhất cho Web Reader.
+
+**5. Khởi chạy Frontend (Web Reader)**
 ```bash
 cd apps/web-reader
 npm install
 npm run dev
 ```
+
+Frontend cần gọi API Gateway qua:
+
+```bash
+VITE_API_URL=http://localhost:8080
+```
+
+Không cấu hình frontend gọi trực tiếp `auth-service`, `story-service`, hoặc `sync-service`.
 Giao diện Web đọc truyện sẽ khởi chạy tại: `http://localhost:5173`
 
 
