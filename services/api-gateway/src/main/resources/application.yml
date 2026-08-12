@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   application:
     name: api-gateway
@@ -26,6 +29,7 @@ spring:
             allowCredentials: true
 
       default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
         - AddRequestHeader=X-Gateway-Secret, ${GATEWAY_SHARED_SECRET:local-gateway-secret}
 
       routes:
